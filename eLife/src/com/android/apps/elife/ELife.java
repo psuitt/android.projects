@@ -1,4 +1,4 @@
-package com.android.elife;
+package com.android.apps.elife;
 
 import java.util.Locale;
 
