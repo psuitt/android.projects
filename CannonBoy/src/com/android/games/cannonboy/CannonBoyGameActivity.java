@@ -15,6 +15,9 @@ public class CannonBoyGameActivity extends Activity {
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
+		
+		
+		//OMG THIS IS A TEST
 		getMenuInflater().inflate(R.menu.cannon_boy_game, menu);
 		return true;
 	}
