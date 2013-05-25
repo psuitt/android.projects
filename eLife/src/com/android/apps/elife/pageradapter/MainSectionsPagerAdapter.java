@@ -2,12 +2,14 @@ package com.android.apps.elife.pageradapter;
 
 import java.util.Locale;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.view.ViewGroup;
 
 import com.android.apps.elife.R;
 import com.android.apps.elife.ELife.DummySectionFragment;
@@ -22,7 +24,7 @@ import com.android.apps.elife.consts.PageConstants;
 public class MainSectionsPagerAdapter extends FragmentPagerAdapter {
 
 	/** Application context. */
-	private final Context context;
+	private static Context context;
 	
 	/**
 	 * Calls the super.
@@ -65,6 +67,11 @@ public class MainSectionsPagerAdapter extends FragmentPagerAdapter {
                 return context.getString(R.string.title_section3);
         }
         return null;
+    }
+    
+    @Override
+    public void destroyItem(ViewGroup container, int position, Object object) {
+    	super.destroyItem(container, position, object);
     }
 
 }
