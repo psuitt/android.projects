@@ -24,7 +24,7 @@ import com.android.apps.elife.consts.PageConstants;
 public class MainSectionsPagerAdapter extends FragmentPagerAdapter {
 
 	/** Application context. */
-	private Context context;
+	private static Context context;
 	
 	/**
 	 * Calls the super.
@@ -71,7 +71,6 @@ public class MainSectionsPagerAdapter extends FragmentPagerAdapter {
     
     @Override
     public void destroyItem(ViewGroup container, int position, Object object) {
-    	context = null;
     	super.destroyItem(container, position, object);
     }
 
