@@ -7,28 +7,22 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
-/**
- * Calendar fragment located left of the home page.
- * @author Sora
- *
- */
-public class MainCalendarFragment extends Fragment {
-	
+public class EventSearchFragment extends Fragment {
+
 	/**
 	 * Constructor does nothing.
 	 */
-	public MainCalendarFragment() {	
+	public EventSearchFragment() {	
 	}
 	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		View rootView = inflater.inflate(R.layout.loggedin_calendar, container, false);
+		View rootView = inflater.inflate(R.layout.fragment_event_search, container, false);
 		//TextView dummyTextView = (TextView) rootView.findViewById(R.id.section_label);
 		//dummyTextView.setText(Integer.toString(getArguments().getInt(ARG_SECTION_NUMBER)));
 		return rootView;
 	}
-
+	
 }

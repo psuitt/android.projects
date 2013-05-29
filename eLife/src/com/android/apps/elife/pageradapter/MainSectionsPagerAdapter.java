@@ -14,7 +14,8 @@ import android.view.ViewGroup;
 import com.android.apps.elife.R;
 import com.android.apps.elife.ELife.DummySectionFragment;
 import com.android.apps.elife.consts.PageConstants;
-import com.android.apps.elife.fragments.MainCalendarFragment;
+import com.android.apps.elife.fragments.CalendarFragment;
+import com.android.apps.elife.fragments.EventSearchFragment;
 
 /**
  * Main sections pager adapter for the home class.
@@ -42,13 +43,10 @@ public class MainSectionsPagerAdapter extends FragmentPagerAdapter {
     public Fragment getItem(int position) {
         switch (position) {
 	        case PageConstants.PAGE_1:
-	        	Fragment fragment1 = new MainCalendarFragment();
+	        	Fragment fragment1 = new CalendarFragment();
 	            return fragment1;
 	        case PageConstants.PAGE_2:
-	        	Fragment fragment2 = new DummySectionFragment();
-	            Bundle args2 = new Bundle();
-	            args2.putInt(DummySectionFragment.ARG_SECTION_NUMBER, position + 1);
-	            fragment2.setArguments(args2);
+	        	Fragment fragment2 = new EventSearchFragment();
 	            return fragment2;
 	        case PageConstants.PAGE_3:
 	        	Fragment fragment3 = new DummySectionFragment();
