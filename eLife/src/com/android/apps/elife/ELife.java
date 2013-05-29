@@ -41,7 +41,6 @@ public class ELife extends FragmentActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_elife);
 
-
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the app.
         mSectionsPagerAdapter = new MainSectionsPagerAdapter(getSupportFragmentManager(), getApplicationContext());
