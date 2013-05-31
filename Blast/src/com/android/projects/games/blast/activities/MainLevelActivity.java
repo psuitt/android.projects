@@ -25,6 +25,7 @@ import android.view.WindowManager;
 
 import com.android.projects.games.blast.R;
 import com.android.projects.games.blast.beans.Level;
+import com.android.projects.games.blast.util.DisplayUtil;
 
 public class MainLevelActivity extends Activity {
 
@@ -54,7 +55,7 @@ public class MainLevelActivity extends Activity {
 		paint = new Paint();
 		paint.setColor(Color.argb(255, 135, 206, 250));
 
-		gravity = new Vec2(0.0f, 20f);
+		gravity = new Vec2(0.0f, 50f);
 		world = new World(gravity);
 		world.setSleepingAllowed(false);
 		world.setAutoClearForces(true);
@@ -103,10 +104,8 @@ public class MainLevelActivity extends Activity {
 		final Level level = new Level();
 
 		final Display display = getWindowManager().getDefaultDisplay();
-		final int width = display.getWidth();
-		final int height = display.getHeight();
 
-		level.setBoundaries(width, height);
+		level.setBoundaries(DisplayUtil.getWidth(display), DisplayUtil.getheight(display));
 
 		for (int i = 0; i<level.getBoundaries().length; i++) {
 			final BodyDef wallBodyDef = new BodyDef();
@@ -126,7 +125,7 @@ public class MainLevelActivity extends Activity {
 						continue;
 					}
 
-					world.step(1f/16f, 15, 5);
+					world.step(1f/30f, 5, 2);
 					final Canvas c = holder.lockCanvas();
 					if (c != null) {
 						c.drawPaint(paint);
