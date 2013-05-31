@@ -56,9 +56,9 @@ public class MainLevelActivity extends Activity {
 		setContentView(view);
 		running = true;
 		paint = new Paint();
-		paint.setColor(Color.argb(255, 0, 0, 0));
+		paint.setColor(0xffffffff);
 		
-		gravity = new Vec2(0.0f, 9.81f);
+		gravity = new Vec2(0.0f, 20f);
 		world = new World(gravity);
 		world.setSleepingAllowed(false);
 		world.setAutoClearForces(true);
@@ -69,7 +69,7 @@ public class MainLevelActivity extends Activity {
 		CircleShape circle = new CircleShape();
 
 		circle.m_p.set(new Vec2(0, 0));
-		circle.setRadius(30);
+		circle.setRadius(60);
 		
 		BodyDef bodyDef = new BodyDef();
 		bodyDef.type = BodyType.DYNAMIC;
@@ -88,11 +88,16 @@ public class MainLevelActivity extends Activity {
 		new Thread() {
 			public void run() {
 				while(running) {
-					//world.step(1/16f, 6, 2);
+					
+					if (!holder.getSurface().isValid()) {
+						continue;
+					}
+					
+					world.step(1f/16f, 15, 2);
 					Canvas c = holder.lockCanvas();
 					if (c != null) {
 						c.drawPaint(paint);
-						//drawCircle(c, b2);
+						drawCircle(c, b2);
 						holder.unlockCanvasAndPost(c);
 						
 					}
@@ -113,7 +118,7 @@ public class MainLevelActivity extends Activity {
 	private void drawCircle(Canvas c, Body b) {
 		matrix.reset();
 		matrix.postRotate(b.getAngle()/3.14f*180f);
-		matrix.preTranslate(-image.getWidth()>>>1, -image.getHeight()>>>1);
+		matrix.preTranslate(-image.getWidth()>>1, -image.getHeight()>>1);
 		matrix.postTranslate(b.getPosition().x, b.getPosition().y);
 		c.drawBitmap(image, matrix, null);
 	}
