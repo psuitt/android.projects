@@ -22,6 +22,7 @@ import android.view.WindowManager;
 import android.widget.TextView;
 
 import com.android.projects.games.blast.R;
+import com.android.projects.games.blast.consts.ColorConstants;
 
 import org.jbox2d.collision.shapes.CircleShape;
 import org.jbox2d.common.Vec2;
@@ -56,7 +57,7 @@ public class MainLevelActivity extends Activity {
 		setContentView(view);
 		running = true;
 		paint = new Paint();
-		paint.setColor(0xffffffff);
+		paint.setColor(Color.argb(255, 135, 206, 250));
 		
 		gravity = new Vec2(0.0f, 20f);
 		world = new World(gravity);
