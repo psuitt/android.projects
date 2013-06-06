@@ -3,6 +3,7 @@ package com.android.projects.games.blast.factory;
 import android.view.Display;
 
 import com.android.projects.games.blast.beans.Level;
+import com.android.projects.games.blast.beans.WorldObject;
 import com.android.projects.games.blast.exceptions.LevelsNotInitializedException;
 import com.android.projects.games.blast.util.DisplayUtil;
 
@@ -30,9 +31,24 @@ public class LevelFactory {
 		final Level level = new Level();
 
 		level.setBoundaries(DisplayUtil.getWidth(display), DisplayUtil.getHeight(display));
+		level.setWorldObjects(getLevel1WorldObjects1());
 
 		return level;
 
+	}
+
+	private static WorldObject[] getLevel1WorldObjects1() {
+
+		final WorldObject baseFixture = new WorldObject();
+
+		final WorldObject movingBlock = new WorldObject();
+
+		final WorldObject[] worldObjects = new WorldObject[] {
+				baseFixture,
+				movingBlock
+		};
+
+		return worldObjects;
 	}
 
 	public static Level[] getLevels() throws LevelsNotInitializedException {

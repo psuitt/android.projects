@@ -26,6 +26,8 @@ import android.view.WindowManager;
 import com.android.projects.games.blast.R;
 import com.android.projects.games.blast.beans.Level;
 import com.android.projects.games.blast.consts.ColorConstants;
+import com.android.projects.games.blast.exceptions.LevelsNotInitializedException;
+import com.android.projects.games.blast.factory.LevelFactory;
 import com.android.projects.games.blast.util.DisplayUtil;
 
 public class MainLevelActivity extends Activity {
@@ -110,13 +112,17 @@ public class MainLevelActivity extends Activity {
 		body.createFixture(f);
 		b3 = body;
 
-		final Level level = new Level();
+		LevelFactory.createAllLevels(display);
 
-		display = getWindowManager().getDefaultDisplay();
+		final int levelInt = Integer.getInteger(getIntent().getStringExtra("level"));
 
-		level.setBoundaries(getWidth(), getHeight());
-
-		createBoundaries(level);
+		try {
+			final Level level = LevelFactory.getLevels()[levelInt];
+			createBoundaries(level);
+		} catch (final LevelsNotInitializedException e) {
+			// If this breaks nothing you can do close the app.
+			e.printStackTrace();
+		}
 
 		new Thread() {
 			@Override
