@@ -25,14 +25,18 @@ import android.view.WindowManager;
 
 import com.android.projects.games.blast.R;
 import com.android.projects.games.blast.beans.Level;
+import com.android.projects.games.blast.consts.ColorConstants;
 import com.android.projects.games.blast.util.DisplayUtil;
 
 public class MainLevelActivity extends Activity {
+
+	Display display;
 
 	SurfaceView view;
 	SurfaceHolder holder;
 
 	Paint paint;
+	Paint scorePaint;
 
 	Vec2 gravity;
 	World world;
@@ -54,6 +58,11 @@ public class MainLevelActivity extends Activity {
 		running = true;
 		paint = new Paint();
 		paint.setColor(Color.argb(255, 135, 206, 250));
+		scorePaint = new Paint();
+		scorePaint.setColor(ColorConstants.WHITE);
+		scorePaint.setStyle(Paint.Style.FILL_AND_STROKE);
+		scorePaint.setStrokeWidth(1);
+		scorePaint.setTextSize(30);
 
 		gravity = new Vec2(0.0f, 50f);
 		world = new World(gravity);
@@ -103,18 +112,11 @@ public class MainLevelActivity extends Activity {
 
 		final Level level = new Level();
 
-		final Display display = getWindowManager().getDefaultDisplay();
+		display = getWindowManager().getDefaultDisplay();
 
-		level.setBoundaries(DisplayUtil.getWidth(display), DisplayUtil.getheight(display));
+		level.setBoundaries(getWidth(), getHeight());
 
-		for (int i = 0; i<level.getBoundaries().length; i++) {
-			final BodyDef wallBodyDef = new BodyDef();
-			wallBodyDef.position.set(level.getBoundaries()[i][0], level.getBoundaries()[i][1]);
-			final PolygonShape wallShapeDef = new PolygonShape();
-			wallShapeDef.setAsBox(level.getBoundaries()[i][2], level.getBoundaries()[i][3]);
-			final Body wall = world.createBody(wallBodyDef);
-			wall.createFixture(wallShapeDef, 1f);
-		}
+		createBoundaries(level);
 
 		new Thread() {
 			@Override
@@ -129,6 +131,12 @@ public class MainLevelActivity extends Activity {
 					final Canvas c = holder.lockCanvas();
 					if (c != null) {
 						c.drawPaint(paint);
+
+						if (true) { // If game needs a score redraw do it.
+							c.drawText("0", 10, 30, scorePaint);
+							c.drawText("Blast!", getWidth()/2 - 15, getHeight() - 30, scorePaint);
+						}
+
 						drawCircle(c, b2);
 						drawCircle(c, b3);
 						holder.unlockCanvasAndPost(c);
@@ -146,6 +154,25 @@ public class MainLevelActivity extends Activity {
 
 			};
 		}.start();
+	}
+
+	private void createBoundaries(final Level level) {
+		for (int i = 0; i<level.getBoundaries().length; i++) {
+			final BodyDef wallBodyDef = new BodyDef();
+			wallBodyDef.position.set(level.getBoundaries()[i][0], level.getBoundaries()[i][1]);
+			final PolygonShape wallShapeDef = new PolygonShape();
+			wallShapeDef.setAsBox(level.getBoundaries()[i][2], level.getBoundaries()[i][3]);
+			final Body wall = world.createBody(wallBodyDef);
+			wall.createFixture(wallShapeDef, 1f);
+		}
+	}
+
+	private int getWidth() {
+		return DisplayUtil.getWidth(display);
+	}
+
+	private int getHeight() {
+		return DisplayUtil.getHeight(display);
 	}
 
 	private void drawCircle(final Canvas c, final Body b) {

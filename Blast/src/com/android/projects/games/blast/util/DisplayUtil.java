@@ -14,7 +14,7 @@ public final class DisplayUtil {
 		return display.getWidth();
 	}
 
-	public static int getheight(final Display display) {
+	public static int getHeight(final Display display) {
 		return display.getHeight();
 	}
 
