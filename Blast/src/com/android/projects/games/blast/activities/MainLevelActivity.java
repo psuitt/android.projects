@@ -24,6 +24,7 @@ import android.view.Window;
 import android.view.WindowManager;
 
 import com.android.projects.games.blast.R;
+import com.android.projects.games.blast.beans.Game;
 import com.android.projects.games.blast.beans.Level;
 import com.android.projects.games.blast.consts.ColorConstants;
 import com.android.projects.games.blast.exceptions.LevelsNotInitializedException;
@@ -47,6 +48,8 @@ public class MainLevelActivity extends Activity {
 	Bitmap image;
 	Matrix matrix;
 
+	Game game;
+
 	boolean running;
 
 	@Override
@@ -58,6 +61,8 @@ public class MainLevelActivity extends Activity {
 		setFullScreen(this);
 		setContentView(view);
 		running = true;
+		display = getWindowManager().getDefaultDisplay();
+
 		paint = new Paint();
 		paint.setColor(Color.argb(255, 135, 206, 250));
 		scorePaint = new Paint();
@@ -114,11 +119,13 @@ public class MainLevelActivity extends Activity {
 
 		LevelFactory.createAllLevels(display);
 
-		final int levelInt = Integer.getInteger(getIntent().getStringExtra("level"));
+		final String levelString = getIntent().getExtras().getString("level");
+		final Integer levelInt = Integer.valueOf(levelString);
 
 		try {
 			final Level level = LevelFactory.getLevels()[levelInt];
 			createBoundaries(level);
+			game = new Game(getResources(), level, world);
 		} catch (final LevelsNotInitializedException e) {
 			// If this breaks nothing you can do close the app.
 			e.printStackTrace();
@@ -145,6 +152,7 @@ public class MainLevelActivity extends Activity {
 
 						drawCircle(c, b2);
 						drawCircle(c, b3);
+						game.drawBodies(c);
 						holder.unlockCanvasAndPost(c);
 
 					}

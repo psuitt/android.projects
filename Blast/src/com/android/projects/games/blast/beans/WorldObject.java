@@ -1,6 +1,9 @@
 package com.android.projects.games.blast.beans;
 
+import org.jbox2d.dynamics.Body;
 import org.jbox2d.dynamics.BodyType;
+
+import android.graphics.Paint;
 
 /**
  * Used to create objects for the world.
@@ -22,10 +25,14 @@ public class WorldObject {
 
 	private BodyType bodyType = BodyType.STATIC;
 
-	private WorldObjectType worldObjectType = WorldObjectType.SQUARE;
+	private WorldObjectType worldObjectType = WorldObjectType.RECTANGLE;
+
+	private Body body;
+
+	private Paint paint;
 
 	public enum WorldObjectType {
-		SQUARE
+		RECTANGLE
 	}
 
 	/**
@@ -88,6 +95,22 @@ public class WorldObject {
 
 	public void setWorldObjectType(final WorldObjectType worldObjectType) {
 		this.worldObjectType = worldObjectType;
+	}
+
+	public Body getBody() {
+		return body;
+	}
+
+	public void setBody(final Body body) {
+		this.body = body;
+	}
+
+	public Paint getPaint() {
+		return paint;
+	}
+
+	public void setPaint(final Paint paint) {
+		this.paint = paint;
 	}
 
 }
